@@ -1,57 +1,3 @@
-Skip to content
-Sobansaud
-Hackhathon_Guide
-Repository navigation
-Code
-Issues
-Pull requests
-Actions
-Projects
-Security
-Insights
-You’re making changes in a project you don’t have write access to. Submitting a change will write it to a new branch in your fork shumailagithub/Hackhathon_Guide, so you can send a pull request.
-Hackhathon_Guide
-/
-Docker.md
-in
-main
-
-Edit
-
-Preview
-Indent mode
-
-Spaces
-Indent size
-
-4
-Line wrap mode
-
-Soft wrap
-Editing Docker.md file contents
-1
-2
-3
-4
-5
-6
-7
-8
-9
-10
-11
-12
-13
-14
-15
-16
-17
-18
-19
-20
-21
-22
-23
 
 ### CODEVERSE SOBAN
 # 🚀 Next.js & FastAPI Applications → Docker Image → Docker Hub (Step by Step)
@@ -75,6 +21,198 @@ In this Guide / Video you will learn:
 ---
 
 # 🌐 PART 1: Next.js Application with Docker
-Use Control + Shift + m to toggle the tab key moving focus. Alternatively, use esc then tab to move to the next interactive element on the page.
-No file chosen
-Attach files by dragging & dropping, selecting or pasting them.
+
+## 📁 Step 1: Create a Next.js Application
+
+```bash
+npx create-next-app@latest nextjs-app
+cd nextjs-app
+```
+
+Run locally:
+
+```bash
+npm run dev
+```
+
+Open in browser:
+```
+http://localhost:3000
+```
+
+---
+
+## 🐳 Step 2: Create Dockerfile for Next.js
+
+```dockerfile
+FROM node:18-alpine
+
+WORKDIR /app
+
+COPY package*.json ./
+
+RUN npm install
+
+COPY . .
+
+RUN npm run build
+
+EXPOSE 3000
+
+CMD ["npm", "start"]
+```
+
+---
+
+## 🔐 Step 3: Login to Docker Hub
+
+```bash
+docker login
+```
+
+---
+
+## 🏗️ Step 4: Build Next.js Docker Image
+
+```bash
+docker build -t sobansaud121/todo_frontend .
+```
+
+---
+
+## ▶️ Step 5: Run Next.js Container
+
+```bash
+docker run -p 3000:3000 sobansaud121/todo_frontend
+```
+
+---
+
+## ⬆️ Step 6: Push Next.js Image to Docker Hub
+
+```bash
+docker push sobansaud121/todo_frontend
+```
+
+---
+
+# ⚡ PART 2: FastAPI Application with Docker
+
+## 📁 Step 1: Create FastAPI Project
+
+```bash
+mkdir fastapi-app
+cd fastapi-app
+```
+
+Create `main.py`:
+
+```python
+from fastapi import FastAPI
+
+app = FastAPI()
+
+@app.get("/")
+def read_root():
+    return {"message": "Hello from FastAPI with Docker"}
+```
+
+Create `requirements.txt`:
+
+```txt
+fastapi
+uvicorn
+```
+
+---
+
+## ▶️ Step 2: Run FastAPI Locally (Optional)
+
+```bash
+pip install -r requirements.txt
+uvicorn main:app --reload
+```
+
+Open in browser:
+```
+http://localhost:8000
+```
+
+---
+
+## 🐳 Step 3: Create Dockerfile for FastAPI
+
+```dockerfile
+# Use Python 3.12 slim image as base
+FROM python:3.12-slim
+
+# Set working directory
+WORKDIR /app
+
+# Copy requirements file
+COPY requirements.txt .
+
+# Install dependencies
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Copy environment file
+COPY .env .env
+
+# Copy the application code
+COPY app/ ./app/
+
+# Expose port 8000
+EXPOSE 8000
+
+# Run the application
+CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8000"]
+```
+
+---
+
+## 🏗️ Step 4: Build FastAPI Docker Image
+
+```bash
+docker build -t sobansaud121/todo_backend .
+```
+
+---
+
+## ▶️ Step 5: Run FastAPI Container
+
+```bash
+docker run -p 8000:8000 sobansaud121/todo_backend
+```
+
+---
+
+## ⬆️ Step 6: Push FastAPI Image to Docker Hub
+
+```bash
+docker push sobansaud121/todo_backend
+```
+
+---
+
+# 🔗 OPTIONAL: Run Both Containers Together
+
+```bash
+docker run -d -p 3000:3000 sobansaud121/todo_website
+docker run -d -p 8000:8000 sobansaud121/todo_backend
+```
+
+---
+
+## 🎉 Done!
+Your **Next.js Frontend & FastAPI Backend** are now running using Docker 🚀
+
+---
+
+## ❤️ Support the Channel
+
+**CodeVerse Soban**
+👍 Like the video  
+🔁 Share with others  
+🔔 Subscribe for more content  
+
+CODEVERSE – Learn • Build • Deploy
