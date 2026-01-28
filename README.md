@@ -49,7 +49,7 @@ FROM node:18-alpine
 
 WORKDIR /app
 
-COPY package*.json ./
+COPY ../package*.json ./
 
 RUN npm install
 
@@ -75,7 +75,8 @@ docker login
 ## 🏗️ Step 4: Build Next.js Docker Image
 
 ```bash
-docker build -t sobansaud121/todo_frontend .
+docker build -t shumailagulfam3/todo_frontend -f app/Dockerfile .
+
 ```
 
 ---
@@ -83,7 +84,7 @@ docker build -t sobansaud121/todo_frontend .
 ## ▶️ Step 5: Run Next.js Container
 
 ```bash
-docker run -p 3000:3000 sobansaud121/todo_frontend
+docker run -p 3000:3000 shumailagulfam3/todo_frontend
 ```
 
 ---
@@ -91,7 +92,7 @@ docker run -p 3000:3000 sobansaud121/todo_frontend
 ## ⬆️ Step 6: Push Next.js Image to Docker Hub
 
 ```bash
-docker push sobansaud121/todo_frontend
+docker push shumailagulfam3/todo_frontend
 ```
 
 ---
@@ -173,7 +174,7 @@ CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8000"]
 ## 🏗️ Step 4: Build FastAPI Docker Image
 
 ```bash
-docker build -t sobansaud121/todo_backend .
+docker build -t shumailagulfam3/todo_backend .
 ```
 
 ---
@@ -181,7 +182,7 @@ docker build -t sobansaud121/todo_backend .
 ## ▶️ Step 5: Run FastAPI Container
 
 ```bash
-docker run -p 8000:8000 sobansaud121/todo_backend
+docker run -p 8000:8000 shumailagulfam3/todo_backend
 ```
 
 ---
@@ -189,7 +190,7 @@ docker run -p 8000:8000 sobansaud121/todo_backend
 ## ⬆️ Step 6: Push FastAPI Image to Docker Hub
 
 ```bash
-docker push sobansaud121/todo_backend
+docker push shumailagulfam3/todo_backend
 ```
 
 ---
@@ -197,8 +198,8 @@ docker push sobansaud121/todo_backend
 # 🔗 OPTIONAL: Run Both Containers Together
 
 ```bash
-docker run -d -p 3000:3000 sobansaud121/todo_website
-docker run -d -p 8000:8000 sobansaud121/todo_backend
+docker run -d -p 3000:3000 shumailagulfam3/todo_website
+docker run -d -p 8000:8000 shumailagulfam3/todo_backend
 ```
 
 ---
@@ -208,11 +209,6 @@ Your **Next.js Frontend & FastAPI Backend** are now running using Docker 🚀
 
 ---
 
-## ❤️ Support the Channel
 
-**CodeVerse Soban**
-👍 Like the video  
-🔁 Share with others  
-🔔 Subscribe for more content  
 
 CODEVERSE – Learn • Build • Deploy
